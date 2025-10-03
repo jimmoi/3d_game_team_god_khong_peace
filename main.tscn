@@ -1,6 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://dq1xhfw4n3khs"]
+[gd_scene load_steps=14 format=3 uid="uid://dq1xhfw4n3khs"]
 
-[ext_resource type="Script" uid="uid://du5f2ararf4is" path="res://main.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://gh1wencmv2dx" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bq4pecg4p3xb0" path="res://KayKit_Forest/Assets/fbx/Tree_2_B_Color1.fbx" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dd8fqoe6rtw0u" path="res://KayKit_Forest/Assets/fbx/Tree_4_B_Color1.fbx" id="3_kek77"]
 [ext_resource type="PackedScene" uid="uid://d1fogf5ra2ok3" path="res://KayKit_Forest/Assets/fbx/Tree_Bare_1_C_Color1.fbx" id="4_4c57u"]
@@ -9,8 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bdh1m8lypw42y" path="res://KayKit_Forest/Assets/fbx/Tree_3_B_Color1.fbx" id="7_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://54aakc706a3v" path="res://KayKit_Forest/Assets/fbx/Tree_4_A_Color1.fbx" id="8_w48qg"]
 [ext_resource type="PackedScene" uid="uid://c5qqxgcxodpwh" path="res://KayKit_Forest/Assets/fbx/Tree_3_C_Color1.fbx" id="9_vivmo"]
-[ext_resource type="AudioStream" uid="uid://w27jdrs0dwtf" path="res://sound/powerful-cannon-shot.mp3" id="10_efxa6"]
-[ext_resource type="AudioStream" uid="uid://bccnsi8vbuull" path="res://sound/large-underwater-explosion.mp3" id="11_dg77c"]
+[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://gun.tscn" id="10_4c57u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
 size = Vector3(300, 5, 300)
@@ -22,30 +21,8 @@ albedo_color = Color(0.409367, 0.540732, 0.398387, 1)
 material = SubResource("StandardMaterial3D_7mycd")
 size = Vector3(300, 5, 300)
 
-[sub_resource type="Theme" id="Theme_ig7tw"]
-default_font_size = 25
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
-albedo_color = Color(0.180933, 0.180933, 0.180933, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_h2yge"]
-material = SubResource("StandardMaterial3D_0xm2m")
-custom_aabb = AABB(0, 0, 0, 11.92, 0, 0)
-top_radius = 0.06
-bottom_radius = 0.06
-
-[sub_resource type="SphereMesh" id="SphereMesh_ig7tw"]
-material = SubResource("StandardMaterial3D_0xm2m")
-radius = 0.06
-height = 0.12
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_1bvp3"]
-material = SubResource("StandardMaterial3D_0xm2m")
-height = 0.1
-
 [node name="main" type="Node3D"]
 script = ExtResource("1_ig7tw")
-bullet_speed = 30
 
 [node name="world" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
@@ -378,122 +355,9 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, -0.798688, 0.601745, 0, -0.601745, -0.798688, 0, 69.6701, 0)
 shadow_enabled = true
 
-[node name="ui" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = SubResource("Theme_ig7tw")
+[node name="gun" parent="." instance=ExtResource("10_4c57u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+min_barrel_angle = -80
+bullet_speed = 30
 
-[node name="motar_property" type="Label" parent="ui"]
-layout_mode = 1
-offset_left = 16.0
-offset_top = 32.0
-offset_right = 153.0
-offset_bottom = 101.0
-text = "ABC"
-
-[node name="mortar_status" type="Label" parent="ui"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -24.0
-offset_top = 32.0
-offset_right = 25.0
-offset_bottom = 67.0
-grow_horizontal = 2
-text = "ABC"
-
-[node name="shell_status" type="Label" parent="ui"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -704.0
-offset_top = 32.0
-offset_right = -16.0
-offset_bottom = 192.0
-grow_horizontal = 0
-text = "ABC"
-
-[node name="Label" type="Label" parent="ui"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 1000.0
-offset_right = 113.0
-offset_bottom = 1035.0
-text = "Amonthep Selarung 663380301-9"
-
-[node name="manual" type="Label" parent="ui"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -936.0
-offset_top = -268.0
-offset_right = -498.0
-offset_bottom = 299.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "manual
-
-A-D: adjust azimuth angle
-w-s: adjust elevator angle
-shift: fast move
-crtl : slow move
-
-F: fine tune angle mode
-mouse wheel: fine tune angle
-
-left click: fire
-
-u: bullet cam"
-
-[node name="motar" type="Node3D" parent="."]
-
-[node name="Camera3D" type="Camera3D" parent="motar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1061, 1.12092, 1.71298)
-
-[node name="mesh" type="Node3D" parent="motar"]
-
-[node name="body" type="Node3D" parent="motar/mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0492664, 0)
-
-[node name="mesh_barrel" type="MeshInstance3D" parent="motar/mesh/body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05826, 0)
-mesh = SubResource("CylinderMesh_h2yge")
-skeleton = NodePath("")
-
-[node name="mesh_joint" type="MeshInstance3D" parent="motar/mesh/body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00342095, 0)
-mesh = SubResource("SphereMesh_ig7tw")
-
-[node name="mesh_muzzle" type="MeshInstance3D" parent="motar/mesh/body"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00161278, 2.1708, -0.00156558)
-visible = false
-mesh = SubResource("SphereMesh_ig7tw")
-skeleton = NodePath("../mesh_joint")
-
-[node name="mest_base" type="MeshInstance3D" parent="motar/mesh"]
-mesh = SubResource("CylinderMesh_1bvp3")
-
-[node name="reload_cool_down" type="Timer" parent="."]
-wait_time = 3.5
-one_shot = true
-
-[node name="sfx" type="Node" parent="."]
-
-[node name="fire" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("10_efxa6")
-
-[node name="explode" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("11_dg77c")
-
-[connection signal="timeout" from="reload_cool_down" to="." method="_on_reload_cool_down_timeout"]
+[connection signal="fire" from="gun" to="." method="_on_gun_fire"]

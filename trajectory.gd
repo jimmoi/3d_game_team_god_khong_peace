@@ -1,9 +1,17 @@
 extends RigidBody3D
 
-signal explode(position)
+var explode_effect_scene = preload("res://explosion.tscn")
+var explode_effect
+var explode_sfx_sound = preload("res://sound/large-underwater-explosion.mp3")
+var explode_sfx
+
+signal hit(sfx, effect, hit_position)
 
 func _init() -> void:
 	mass = 4 # kg
+	explode_effect = explode_effect_scene.instantiate()
+	explode_sfx = AudioStreamPlayer3D.new()
+	explode_sfx.stream = explode_sfx_sound
 	
 func _physics_process(delta: float) -> void:
 	
@@ -25,7 +33,6 @@ func _physics_process(delta: float) -> void:
 		
 		
 func _integrate_forces(state):
-	if $mesh.visible==true:
-		if state.get_contact_count() > 0:
-			explode.emit(global_position)
-			queue_free()
+	if state.get_contact_count() > 0:
+		hit.emit(explode_sfx, explode_effect, global_position)
+		queue_free()

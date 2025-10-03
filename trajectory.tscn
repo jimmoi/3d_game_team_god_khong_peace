@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhd0v5nlw8ekn"]
+[gd_scene load_steps=10 format=3 uid="uid://bhd0v5nlw8ekn"]
 
 [ext_resource type="Script" uid="uid://bl554xldyk3cb" path="res://trajectory.gd" id="1_qmsch"]
+[ext_resource type="AudioStream" uid="uid://bccnsi8vbuull" path="res://sound/large-underwater-explosion.mp3" id="3_ggpst"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmsch"]
 albedo_color = Color(0.832644, 0.549894, 0.0658648, 1)
@@ -72,3 +73,8 @@ shape = SubResource("CapsuleShape3D_d6ndd")
 
 [node name="camera" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -4.055)
+
+[node name="sfx" type="Node" parent="."]
+
+[node name="explode" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("3_ggpst")
