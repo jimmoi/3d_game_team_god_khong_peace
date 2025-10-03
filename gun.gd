@@ -109,6 +109,7 @@ func fire_trajectory():
 	if Input.is_action_just_pressed("fire") and mortar_status:
 		$sfx/fire.play()
 		var bullet_obj = bullet_trajectory.instantiate()
+		bullet_obj.battery_position = global_position
 		last_track = bullet_obj
 		fire.emit(bullet_obj, mortar_muzzle, bullet_speed)
 		mortar_status = false

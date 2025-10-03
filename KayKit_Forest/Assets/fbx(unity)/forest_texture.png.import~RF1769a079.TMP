@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duvhyqydwu5ux"
-path="res://.godot/imported/index.png-0c78d14d192abe5f22f8c25928ca1ab8.ctex"
+uid="uid://cxrj44spgfe34"
+path="res://.godot/imported/forest_texture.png-770f6849c2ff61f0815196f5e66db963.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/index.png"
-dest_files=["res://.godot/imported/index.png-0c78d14d192abe5f22f8c25928ca1ab8.ctex"]
+source_file="res://KayKit_Forest/Assets/fbx(unity)/forest_texture.png"
+dest_files=["res://.godot/imported/forest_texture.png-770f6849c2ff61f0815196f5e66db963.ctex"]
 
 [params]
 

@@ -5,7 +5,9 @@ var explode_effect
 var explode_sfx_sound = preload("res://sound/large-underwater-explosion.mp3")
 var explode_sfx
 
-signal hit(sfx, effect, hit_position)
+var battery_position
+
+signal hit(sfx, effect, hit_position, fire_position)
 
 func _init() -> void:
 	mass = 4 # kg
@@ -34,5 +36,5 @@ func _physics_process(delta: float) -> void:
 		
 func _integrate_forces(state):
 	if state.get_contact_count() > 0:
-		hit.emit(explode_sfx, explode_effect, global_position)
+		hit.emit(explode_sfx, explode_effect, global_position, battery_position)
 		queue_free()

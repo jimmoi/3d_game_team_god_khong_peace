@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cdin4o633pip7"]
 
 [ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scene/map_scene.gd" id="1_dhios"]
-[ext_resource type="PackedScene" path="res://gun.tscn" id="1_pwi0h"]
+[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://gun.tscn" id="1_pwi0h"]
 
 [sub_resource type="Shader" id="Shader_03pub"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable's StandardMaterial3D.
@@ -112,14 +112,14 @@ void fragment() {
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pwi0h"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dhios"]
-noise = SubResource("FastNoiseLite_pwi0h")
 seamless = true
 as_normal_map = true
+noise = SubResource("FastNoiseLite_pwi0h")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5nj82"]
 render_priority = 0
 shader = SubResource("Shader_03pub")
-shader_parameter/albedo = Color(0.14079413, 0.3099451, 0.5570427, 0.5058824)
+shader_parameter/albedo = Color(0.140794, 0.309945, 0.557043, 0.505882)
 shader_parameter/albedo_texture_size = Vector2i(0, 0)
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.0
@@ -237,8 +237,8 @@ void sky() {
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dhios"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5nj82"]
-noise = SubResource("FastNoiseLite_dhios")
 seamless = true
+noise = SubResource("FastNoiseLite_dhios")
 
 [sub_resource type="Gradient" id="Gradient_8bf0m"]
 
@@ -247,20 +247,20 @@ seamless = true
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cbx02"]
 width = 614
 height = 614
-noise = SubResource("FastNoiseLite_pvncj")
-color_ramp = SubResource("Gradient_8bf0m")
 seamless = true
+color_ramp = SubResource("Gradient_8bf0m")
+noise = SubResource("FastNoiseLite_pvncj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ur6ip"]
 shader = SubResource("Shader_pwi0h")
-shader_parameter/sky_top_color = Color(0.5278759, 0.72914374, 0.98792154, 1)
+shader_parameter/sky_top_color = Color(0.527876, 0.729144, 0.987922, 1)
 shader_parameter/sky_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
-shader_parameter/inv_sky_curve = 3.999999841054287
-shader_parameter/ground_bottom_color = Color(0.10902894, 0.088692866, 0.0658072, 1)
+shader_parameter/inv_sky_curve = 4.0
+shader_parameter/ground_bottom_color = Color(0.109029, 0.0886929, 0.0658072, 1)
 shader_parameter/ground_horizon_color = Color(0.6463, 0.6558, 0.6708, 1)
-shader_parameter/inv_ground_curve = 30.000000670552268
-shader_parameter/sun_angle_max = 0.8660254
-shader_parameter/inv_sun_curve = 22.782017
+shader_parameter/inv_ground_curve = 30.0
+shader_parameter/sun_angle_max = 0.866025
+shader_parameter/inv_sun_curve = 22.782
 shader_parameter/exposure = 1.0
 shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
 shader_parameter/cloud_texture = SubResource("NoiseTexture2D_5nj82")
@@ -287,11 +287,11 @@ radius = 3500.0
 script = ExtResource("1_dhios")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3165846, -0.28082943, 0.22320795)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316585, -0.280829, 0.223208)
 mesh = SubResource("CylinderMesh_8bf0m")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.7881934, -0.00010755263, 0.61542755, -0.6154276, -0.00013774533, 0.78819335, 0, -0.99999994, -0.00017476082, 0, 69.6701, 0)
+transform = Transform3D(0.788193, -0.000107553, 0.615428, -0.615428, -0.000137745, 0.788193, 0, -1, -0.000174761, 0, 69.6701, 0)
 light_energy = 5.0
 shadow_enabled = true
 
@@ -299,7 +299,7 @@ shadow_enabled = true
 environment = SubResource("Environment_dhios")
 
 [node name="gun" parent="." instance=ExtResource("1_pwi0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.130268)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.13027)
 min_barrel_angle = -80
 bullet_speed = 100
 
