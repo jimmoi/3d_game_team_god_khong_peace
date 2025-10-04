@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhd0v5nlw8ekn"]
+[gd_scene load_steps=11 format=3 uid="uid://bhd0v5nlw8ekn"]
 
 [ext_resource type="Script" uid="uid://bl554xldyk3cb" path="res://trajectory.gd" id="1_qmsch"]
+[ext_resource type="Script" uid="uid://dd4fkvomv5gxf" path="res://spring_arm_3d.gd" id="2_k7cbv"]
 [ext_resource type="AudioStream" uid="uid://bccnsi8vbuull" path="res://sound/large-underwater-explosion.mp3" id="3_ggpst"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmsch"]
@@ -71,8 +72,12 @@ mesh = SubResource("BoxMesh_p1627")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0100155, 0.163027, -0.00547123)
 shape = SubResource("CapsuleShape3D_d6ndd")
 
-[node name="camera" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -4.055)
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+spring_length = -4.0
+script = ExtResource("2_k7cbv")
+
+[node name="camera" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="sfx" type="Node" parent="."]
 

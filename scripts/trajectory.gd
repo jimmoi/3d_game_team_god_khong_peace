@@ -1,11 +1,13 @@
 extends RigidBody3D
 
-var explode_effect_scene = preload("res://explosion.tscn")
+var explode_effect_scene = preload("res://scene/explosion.tscn")
 var explode_effect
 var explode_sfx_sound = preload("res://sound/large-underwater-explosion.mp3")
 var explode_sfx
 
-signal hit(sfx, effect, hit_position)
+var battery_position
+
+signal hit(sfx, effect, hit_position, fire_position)
 
 func _init() -> void:
 	mass = 4 # kg
@@ -14,7 +16,6 @@ func _init() -> void:
 	explode_sfx.stream = explode_sfx_sound
 	
 func _physics_process(delta: float) -> void:
-	
 	if linear_velocity.length_squared() > 1:
 		var new_y_axis = linear_velocity.normalized()	
 		var current_y_axis = global_transform.basis.y
@@ -34,5 +35,5 @@ func _physics_process(delta: float) -> void:
 		
 func _integrate_forces(state):
 	if state.get_contact_count() > 0:
-		hit.emit(explode_sfx, explode_effect, global_position)
+		hit.emit(explode_sfx, explode_effect, global_position, battery_position)
 		queue_free()

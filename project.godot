@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="3d_mono"
-run/main_scene="uid://dq1xhfw4n3khs"
-config/features=PackedStringArray("4.5", "Forward Plus")
+run/main_scene="uid://cbibj3uq0edkj"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Manager="*res://manager.gd"
 
 [display]
 

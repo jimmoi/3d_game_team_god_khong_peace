@@ -4,8 +4,7 @@ extends Node3D
 @export var min_barrel_angle = -60 # Example: Minimum angle (horizontal)
 @export var max_barrel_angle = -5 # Example: Maximum angle (vertical)
 @export var initial_barrel_angle = -45
-@export var bullet_trajectory = preload("res://trajectory.tscn")
-var explosion_effect = preload("res://explosion.tscn")
+@export var bullet_trajectory = preload("res://scene/trajectory.tscn")
 @export var bullet_speed = 10 # m/s
 
 
@@ -109,16 +108,19 @@ func fire_trajectory():
 	if Input.is_action_just_pressed("fire") and mortar_status:
 		$sfx/fire.play()
 		var bullet_obj = bullet_trajectory.instantiate()
+		bullet_obj.battery_position = global_position
 		last_track = bullet_obj
 		fire.emit(bullet_obj, mortar_muzzle, bullet_speed)
 		mortar_status = false
 		$reload_cool_down.start()
 
 func switch_shell_camera():
-	if (last_track != null) and Input.is_action_pressed("switch_cam"):
-		shell_cam = last_track.get_node("camera")
+	if (last_track != null) and Input.is_action_pressed("switch_cam") :
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		shell_cam = last_track.get_node("SpringArm3D").get_node("camera")
 		shell_cam.make_current()
 	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		main_cam.make_current()
 		
 func _on_reload_cool_down_timeout() -> void:
