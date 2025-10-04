@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cdin4o633pip7"]
 
 [ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scene/map_scene.gd" id="1_dhios"]
-[ext_resource type="PackedScene" path="res://gun.tscn" id="1_pwi0h"]
+[ext_resource type="PackedScene" uid="uid://delut20ti2y6p" path="res://Charactor/battleship.tscn" id="2_dhios"]
 
 [sub_resource type="Shader" id="Shader_03pub"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable's StandardMaterial3D.
@@ -289,6 +289,7 @@ script = ExtResource("1_dhios")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3165846, -0.28082943, 0.22320795)
 mesh = SubResource("CylinderMesh_8bf0m")
+metadata/_edit_lock_ = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.7881934, -0.00010755263, 0.61542755, -0.6154276, -0.00013774533, 0.78819335, 0, -0.99999994, -0.00017476082, 0, 69.6701, 0)
@@ -298,15 +299,12 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dhios")
 
-[node name="gun" parent="." instance=ExtResource("1_pwi0h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.130268)
-min_barrel_angle = -80
-bullet_speed = 100
-
 [node name="floor" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.985, -2.5, 0)
 shape = SubResource("CylinderShape3D_dhios")
+metadata/_edit_lock_ = true
 
-[connection signal="fire" from="gun" to="." method="_on_gun_fire"]
+[node name="Battleship" parent="." instance=ExtResource("2_dhios")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1)

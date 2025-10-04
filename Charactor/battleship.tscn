@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://delut20ti2y6p"]
+
+[ext_resource type="Script" uid="uid://0rnr2eo36oo2" path="res://battleship.gd" id="1_btgdt"]
+[ext_resource type="PackedScene" uid="uid://fks50wiktmrk" path="res://Models/GLB format/ship-cargo-c.glb" id="2_tb3w1"]
+[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://gun.tscn" id="3_6cew4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vyppf"]
+size = Vector3(3.6675415, 1.204956, 3.0827484)
+
+[node name="Battleship" type="CharacterBody3D"]
+script = ExtResource("1_btgdt")
+
+[node name="model" type="Node3D" parent="."]
+
+[node name="ship-cargo-c2" parent="model" instance=ExtResource("2_tb3w1")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.16470146, 0, -0.90688336)
+
+[node name="hp1" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.15643919, 0.831845, -4.302236)
+shape = SubResource("BoxShape3D_vyppf")
+
+[node name="hp2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.049392104, 0.83597624, -0.8271972)
+shape = SubResource("BoxShape3D_vyppf")
+
+[node name="hp3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.15643857, 0.831845, 2.7833056)
+shape = SubResource("BoxShape3D_vyppf")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 6, 8.539753)
+
+[node name="gun" parent="." instance=ExtResource("3_6cew4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.17684186, 2.4046562, -1.9570336)
+min_barrel_angle = -80
+bullet_speed = 30
+
+[connection signal="fire" from="gun" to="." method="_on_gun_fire"]
