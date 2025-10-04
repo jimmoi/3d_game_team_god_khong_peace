@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dp3f61ycbc01a"]
 
 [ext_resource type="AudioStream" uid="uid://w27jdrs0dwtf" path="res://sound/powerful-cannon-shot.mp3" id="1_dk5gl"]
-[ext_resource type="Script" uid="uid://qaybsva0k5he" path="res://gun.gd" id="1_kw0bs"]
+[ext_resource type="Script" uid="uid://qaybsva0k5he" path="res://scripts/gun.gd" id="1_kw0bs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
 albedo_color = Color(0.180933, 0.180933, 0.180933, 1)
@@ -106,14 +106,6 @@ offset_right = -16.0
 offset_bottom = 192.0
 grow_horizontal = 0
 text = "ABC"
-
-[node name="Label" type="Label" parent="ui"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 1000.0
-offset_right = 113.0
-offset_bottom = 1035.0
-text = "Amonthep Selarung 663380301-9"
 
 [node name="manual" type="Label" parent="ui"]
 layout_mode = 1

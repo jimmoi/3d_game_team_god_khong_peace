@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cdin4o633pip7"]
 
-[ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scene/map_scene.gd" id="1_dhios"]
-[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://gun.tscn" id="1_pwi0h"]
+[ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scripts/map_scene.gd" id="1_dhios"]
+[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://scene/gun.tscn" id="1_pwi0h"]
 
 [sub_resource type="Shader" id="Shader_03pub"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable's StandardMaterial3D.

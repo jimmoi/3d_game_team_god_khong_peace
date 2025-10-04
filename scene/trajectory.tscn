@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bhd0v5nlw8ekn"]
 
-[ext_resource type="Script" uid="uid://bl554xldyk3cb" path="res://trajectory.gd" id="1_qmsch"]
-[ext_resource type="Script" uid="uid://dd4fkvomv5gxf" path="res://spring_arm_3d.gd" id="2_k7cbv"]
+[ext_resource type="Script" uid="uid://bl554xldyk3cb" path="res://scripts/trajectory.gd" id="1_qmsch"]
+[ext_resource type="Script" uid="uid://dd4fkvomv5gxf" path="res://scripts/spring_arm_3d.gd" id="2_k7cbv"]
 [ext_resource type="AudioStream" uid="uid://bccnsi8vbuull" path="res://sound/large-underwater-explosion.mp3" id="3_ggpst"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qmsch"]
