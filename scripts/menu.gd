@@ -42,29 +42,29 @@ func create_player():
 	game_mode_menu.visible=false
 	role_select_menu.visible=true
 	Manager.create_init_player()
-	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i+1)
+	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	
 
 
 func _on_button_role_1_pressed() -> void:
-	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	player_role_temp = $VBoxContainer2_select_role/Button_role_1.text
 	Manager.players[player_i]["role"] = player_role_temp
 	player_i += 1
+	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()
 
 func _on_button_role_2_pressed() -> void:
-	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	player_role_temp = $VBoxContainer2_select_role/Button_role_2.text
 	Manager.players[player_i]["role"] = player_role_temp
 	player_i += 1
+	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()
 
 func _on_button_role_3_pressed() -> void:
-	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	player_role_temp = $VBoxContainer2_select_role/Button_role_3.text
 	Manager.players[player_i]["role"] = player_role_temp
 	player_i += 1
+	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()
 	
 func check_next_scene():
