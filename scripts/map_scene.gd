@@ -1,31 +1,35 @@
 extends Node3D
 
 @export var sound_speed = 333 # m/s
-
+var boat_scene = {"Battleship":preload("res://Charactor/battleship.tscn"),
+					"Cruiser":preload("res://Charactor/cruiser.tscn"),
+					"Destroyer":preload("res://Charactor/destroyer.tscn")}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(Manager.players)
-	pass # Replace with function body.
+	print(Manager.players.values())
+	for i in Manager.players:
+		print(i)
+		var player = Manager.players.values()[i-1]
+		var temp_node = boat_scene[player["role"]].instantiate()
+		add_child(temp_node)
+		var angle = randf() * TAU # มุมรอบวงกลม (0 ถึง 2π)
+		var distance = randf() * 3000.0 # ระยะทางจากศูนย์กลาง (0 ถึง 3000)
+
+		# คำนวณตำแหน่ง (ในระนาบ XZ ถ้าเป็น 3D)
+		var pos = Vector3(
+			cos(angle) * distance,
+			0.0,  # ความสูง (Y) = 0
+			sin(angle) * distance
+		)
+
+		temp_node.global_transform.origin = pos
+		player["boat_node"] = temp_node
+		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_gun_fire(bullet_obj, muzzle, bullet_speed) -> void:
-	add_child(bullet_obj)
-	bullet_obj.global_transform = muzzle.global_transform
-	var forward_vector: Vector3 = bullet_obj.global_transform.basis.y
-	bullet_obj.linear_velocity = forward_vector * bullet_speed
-	bullet_obj.hit.connect(_on_explode)
-	
-func _on_explode(explosion_sfx, explosion_effect, hit_position, battery_position):
-	add_child(explosion_sfx)
-	add_child(explosion_effect)
-	explosion_effect.global_position = hit_position
-	var delay_sound_sec = abs((hit_position-battery_position).length())/sound_speed
-	await get_tree().create_timer(delay_sound_sec).timeout
-	explosion_sfx.play()
 		
 	
