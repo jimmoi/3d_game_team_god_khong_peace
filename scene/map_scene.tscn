@@ -1,7 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cdin4o633pip7"]
 
 [ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scripts/map_scene.gd" id="1_dhios"]
-[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://scene/gun.tscn" id="1_pwi0h"]
 
 [sub_resource type="Shader" id="Shader_03pub"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable's StandardMaterial3D.
@@ -112,9 +111,9 @@ void fragment() {
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pwi0h"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dhios"]
+noise = SubResource("FastNoiseLite_pwi0h")
 seamless = true
 as_normal_map = true
-noise = SubResource("FastNoiseLite_pwi0h")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5nj82"]
 render_priority = 0
@@ -237,8 +236,8 @@ void sky() {
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dhios"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5nj82"]
-seamless = true
 noise = SubResource("FastNoiseLite_dhios")
+seamless = true
 
 [sub_resource type="Gradient" id="Gradient_8bf0m"]
 
@@ -247,9 +246,9 @@ noise = SubResource("FastNoiseLite_dhios")
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cbx02"]
 width = 614
 height = 614
-seamless = true
-color_ramp = SubResource("Gradient_8bf0m")
 noise = SubResource("FastNoiseLite_pvncj")
+color_ramp = SubResource("Gradient_8bf0m")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ur6ip"]
 shader = SubResource("Shader_pwi0h")
