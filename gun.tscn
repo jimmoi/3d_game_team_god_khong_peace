@@ -72,6 +72,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 theme = SubResource("Theme_8iju2")
 
 [node name="motar_property" type="Label" parent="ui"]

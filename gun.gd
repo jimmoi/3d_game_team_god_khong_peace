@@ -116,10 +116,13 @@ func fire_trajectory():
 		$reload_cool_down.start()
 
 func switch_shell_camera():
-	if (last_track != null) and Input.is_action_pressed("switch_cam"):
-		shell_cam = last_track.get_node("camera")
+	 #and Input.is_action_pressed("switch_cam")
+	if (last_track != null):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		shell_cam = last_track.get_node("SpringArm3D").get_node("camera")
 		shell_cam.make_current()
 	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		main_cam.make_current()
 		
 func _on_reload_cool_down_timeout() -> void:

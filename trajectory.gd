@@ -16,7 +16,6 @@ func _init() -> void:
 	explode_sfx.stream = explode_sfx_sound
 	
 func _physics_process(delta: float) -> void:
-	
 	if linear_velocity.length_squared() > 1:
 		var new_y_axis = linear_velocity.normalized()	
 		var current_y_axis = global_transform.basis.y

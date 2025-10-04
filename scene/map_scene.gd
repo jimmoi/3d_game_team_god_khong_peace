@@ -4,6 +4,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass # Replace with function body.
 
 
@@ -26,5 +27,5 @@ func _on_explode(explosion_sfx, explosion_effect, hit_position, battery_position
 	var delay_sound_sec = abs((hit_position-battery_position).length())/sound_speed
 	await get_tree().create_timer(delay_sound_sec).timeout
 	explosion_sfx.play()
-	
+		
 	
