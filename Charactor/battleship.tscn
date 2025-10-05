@@ -11,15 +11,14 @@ size = Vector3(1.7, 1, 3)
 script = ExtResource("1_btgdt")
 
 [node name="model" type="Node3D" parent="."]
-transform = Transform3D(0.8, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="ship-cargo-c2" parent="model" instance=ExtResource("2_tb3w1")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.16470146, 0, -0.90688336)
+[node name="ship" parent="model" instance=ExtResource("2_tb3w1")]
+transform = Transform3D(-0.8, 0, -1.509958e-07, 0, 1, 0, 1.2079664e-07, 0, -1, -0.16470146, 0, -0.90688336)
 
-[node name="gun" parent="model/ship-cargo-c2" instance=ExtResource("3_6cew4")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.012140304, 2.4046562, 1.0501503)
-min_barrel_angle = -80
-bullet_speed = 100
+[node name="gun" parent="model" instance=ExtResource("3_6cew4")]
+transform = Transform3D(0.8, 0, 8.105758e-08, 0, 1, 0, -3.3373865e-08, 0, 1, -0.17441386, 2.4046562, -1.9570336)
+min_barrel_angle = -95
+bullet_speed = 200
 
 [node name="hp1" type="CollisionShape3D" parent="."]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.15643919, 0.831845, -4.302236)
@@ -36,4 +35,4 @@ shape = SubResource("BoxShape3D_vyppf")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 6, 8.539753)
 
-[connection signal="fire" from="model/ship-cargo-c2/gun" to="." method="_on_gun_fire"]
+[connection signal="fire" from="model/gun" to="." method="_on_gun_fire"]

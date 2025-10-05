@@ -12,13 +12,13 @@ script = ExtResource("1_4xi5a")
 
 [node name="model" type="Node3D" parent="."]
 
-[node name="boat-tow-b2" parent="model" instance=ExtResource("2_30ysa")]
+[node name="ship" parent="model" instance=ExtResource("2_30ysa")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
-[node name="gun" parent="model/boat-tow-b2" instance=ExtResource("3_30ysa")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -7.9646036e-08, 2.745076, -0.9110445)
-min_barrel_angle = -80
-bullet_speed = 100
+[node name="gun" parent="model" instance=ExtResource("3_30ysa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.745076, 0.9110445)
+min_barrel_angle = -95
+bullet_speed = 200
 
 [node name="Hp1" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.018814087, 0.876709, 1.1381836)
@@ -31,4 +31,4 @@ shape = SubResource("BoxShape3D_ya42d")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 2.5081883e-08, 6.7206707e-09, -2.5966674e-08, 0.9659259, 0.25881907, 0, -0.25881907, 0.9659258, -0.20699453, 4.4380636, 6.48167)
 
-[connection signal="fire" from="model/boat-tow-b2/gun" to="." method="_on_gun_fire"]
+[connection signal="fire" from="model/gun" to="." method="_on_gun_fire"]
