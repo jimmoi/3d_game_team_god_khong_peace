@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://dllqk0w05omnb"]
+[gd_scene load_steps=6 format=3 uid="uid://dllqk0w05omnb"]
 
 [ext_resource type="Script" uid="uid://b2a0cm3nbop84" path="res://scripts/destroyer.gd" id="1_cqrgk"]
 [ext_resource type="PackedScene" uid="uid://dsib02103sbv3" path="res://Models/GLB format/boat-speed-a.glb" id="2_goh8i"]
 [ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://scene/gun.tscn" id="3_goh8i"]
+[ext_resource type="Script" uid="uid://d2sk3c4y2oef6" path="res://Charactor/spring_arm_3d_v2.gd" id="4_o41ur"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o41ur"]
-size = Vector3(1.7749634, 1, 2.9971008)
+size = Vector3(1.775, 1.28, 2.997)
 
 [node name="Destroyer" type="CharacterBody3D"]
 script = ExtResource("1_cqrgk")
 
 [node name="model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15116, 0)
 
 [node name="ship" parent="model" instance=ExtResource("2_goh8i")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.01250422, 0.17226231, 0.067254424)
@@ -18,13 +20,18 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.01
 [node name="gun" parent="model" instance=ExtResource("3_goh8i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4320517, 0.21343541)
 min_barrel_angle = -95
-bullet_speed = 200
+bullet_speed = 40
 
-[node name="hp1" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010467529, 0.7908751, 0.047088623)
+[node name="hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010467529, 0.6530255, 0.047088623)
 shape = SubResource("BoxShape3D_o41ur")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.99926627, 6.601274e-08, 0.03830054, -0.01915033, 0.8660253, 0.4996332, -0.033169206, -0.50000006, 0.8653899, 0, 4.0909886, 4.4906526)
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.539, 0)
+spring_length = 10.0
+script = ExtResource("4_o41ur")
+
+[node name="camera" type="Camera3D" parent="SpringArm3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.745, 0)
 
 [connection signal="fire" from="model/gun" to="." method="_on_gun_fire"]
