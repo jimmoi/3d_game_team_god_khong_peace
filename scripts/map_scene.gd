@@ -1,14 +1,41 @@
 extends Node3D
 
 @export var sound_speed = 333 # m/s
-var boat_scene = {"Battleship":preload("res://Charactor/battleship.tscn"),
+@export var time_to_event = 3
+
+var ship_scene = {"Battleship":preload("res://Charactor/battleship.tscn"),
 					"Cruiser":preload("res://Charactor/cruiser.tscn"),
 					"Destroyer":preload("res://Charactor/destroyer.tscn")}
+var button_panel	
+var button
+
+
+signal any_signal_received(chosen_action: String)
+signal end_move
+signal end_fire
+
+var focus_player
+
+var prim_round = 4
+
+var prev_ship_loc
+var new_ship_loc
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Control/Label.visible = false
+	button_panel = $Control/HBoxContainer
+	button_panel.visible = false
+	button = {
+		"move":	$Control/HBoxContainer/Button_move,
+		"skill": $Control/HBoxContainer/Button_skill,
+		"confirm": $Control/Button_confirm
+	}
+	button["confirm"].visible = false
+	
 	for i in range(Manager.players.size()):
 		var player = Manager.players.values()[i]
-		var temp_ship_node = boat_scene[player["role"]].instantiate()
+		var temp_ship_node = ship_scene[player["role"]].instantiate()
 		var gun = temp_ship_node.get_node("model").get_node("gun")
 		gun.fire.connect(_on_gun_fire)
 		add_child(temp_ship_node)
@@ -28,26 +55,53 @@ func _ready() -> void:
 	game_turn()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 
 func game_turn():
 	var curr_turn = randi() % Manager.selected_game_mode
+	$Control/Label.visible = true
+	var sub_round = 1
 	while true:
-		var focus_player = Manager.players.values()[curr_turn]
+		# init setup
+		focus_player = Manager.players.values()[curr_turn]
 		var ship = focus_player["ship_node"]
 		var ship_cam = ship.get_node("Camera3D")
 		var gun = ship.get_node("model").get_node("gun")
 		ship_cam.make_current()
-		ship.on_use = true
-		await get_tree().create_timer(5).timeout
+		if sub_round % (Manager.selected_game_mode+1) == 0:
+			sub_round = 1
+			prim_round -= 1
+			
+		$Control/Label.text = "Time to Event: %d" % prim_round
+		
+		# let's player select mode
+		if prim_round == 0:
+			prim_round = 4
+			$Control/Label.text = "Time to Event: %d" % prim_round
+			button_panel.visible = true
+			var chosen_action = await any_signal_received 
+			button_panel.visible = false
+			if chosen_action=="move":
+				prev_ship_loc = ship.global_position
+				button["confirm"].visible = true
+				ship.on_use = true
+				await end_move
+				button["confirm"].visible = false
+			elif chosen_action=="skill":
+				# do skill logic
+				# ship.skill
+				pass
+		
+		# fire sequence
 		ship.on_use = false
 		gun.on_use = true
-		await get_tree().create_timer(120).timeout
+		await end_fire
+		await get_tree().create_timer(1).timeout
+		
 		gun.on_use = false
 		gun.mortar_status = true
+		sub_round += 1
+		
+		
 		curr_turn += 1
 		curr_turn %= Manager.selected_game_mode
 	
@@ -65,5 +119,21 @@ func _on_explode(explosion_sfx, explosion_effect, hit_position, battery_position
 	var delay_sound_sec = abs((hit_position-battery_position).length())/sound_speed
 	await get_tree().create_timer(delay_sound_sec).timeout
 	explosion_sfx.play()
+	end_fire.emit()
 		
 	
+
+
+func _on_button_move_pressed() -> void:
+	any_signal_received.emit("move")
+
+func _on_button_skill_pressed() -> void:
+	any_signal_received.emit("skill")
+
+
+func _on_button_confirm_pressed() -> void:
+	var valid
+	if (focus_player["ship_node"].global_position - prev_ship_loc).legnth() <= 50:
+		end_move.emit()
+	else:
+		print("current position is no valid")

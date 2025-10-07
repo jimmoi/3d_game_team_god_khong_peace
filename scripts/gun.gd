@@ -116,7 +116,7 @@ func fire_trajectory():
 		bullet_obj.battery_position = global_position
 		last_track = bullet_obj
 		fire.emit(bullet_obj, mortar_muzzle, bullet_speed)
-		#mortar_status = false
+		mortar_status = false
 
 func switch_shell_camera():
 	if (last_track != null) and Input.is_action_pressed("switch_cam") :

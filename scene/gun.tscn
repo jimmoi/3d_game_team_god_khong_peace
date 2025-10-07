@@ -78,6 +78,7 @@ offset_left = 16.0
 offset_top = 32.0
 offset_right = 153.0
 offset_bottom = 101.0
+theme_override_constants/outline_size = 5
 text = "ABC"
 
 [node name="mortar_status" type="Label" parent="ui"]
@@ -90,6 +91,7 @@ offset_top = 32.0
 offset_right = 25.0
 offset_bottom = 67.0
 grow_horizontal = 2
+theme_override_constants/outline_size = 5
 text = "ABC"
 
 [node name="shell_status" type="Label" parent="ui"]
@@ -102,6 +104,7 @@ offset_top = 32.0
 offset_right = -16.0
 offset_bottom = 192.0
 grow_horizontal = 0
+theme_override_constants/outline_size = 5
 text = "ABC"
 
 [node name="manual" type="Label" parent="ui"]
@@ -117,6 +120,7 @@ offset_right = -498.0
 offset_bottom = 299.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 text = "manual
 
 A-D: adjust azimuth angle
