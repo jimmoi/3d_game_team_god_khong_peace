@@ -287,6 +287,8 @@ default_font_size = 40
 
 [node name="Map_scene" type="Node3D"]
 script = ExtResource("1_dhios")
+sound_speed = null
+time_to_event = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316585, -0.280829, 0.223208)
