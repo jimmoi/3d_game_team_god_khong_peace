@@ -77,11 +77,6 @@ func _process(delta: float) -> void:
 			button["confirm"].add_theme_color_override("font_color", Color("ff0000"))
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func game_turn():
 	var curr_turn = randi() % Manager.selected_game_mode
 	$Control/Label.visible = true
