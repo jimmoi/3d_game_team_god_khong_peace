@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-var explode_effect_scene = preload("res://scene/explosion.tscn")
+var explode_effect_scene = preload("res://Explosion/Prefab.tscn")
 var explode_effect
 var explode_sfx_sound = preload("res://sound/large-underwater-explosion.mp3")
 var explode_sfx

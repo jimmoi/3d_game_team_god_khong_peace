@@ -98,7 +98,7 @@ func game_turn():
 			$Control/ShowNearest.text = "Winner is player %d" % Manager.players.keys()[0]
 			await get_tree().create_timer(5).timeout
 			$Control/ShowNearest.visible = false
-			get_tree().change_scene_to_packed(NEXT_SCENE)
+			break
 			
 		focus_player = Manager.players.values()[curr_turn]
 		focus_player_i = Manager.players.keys()[curr_turn]
@@ -155,7 +155,7 @@ func game_turn():
 		curr_turn += 1
 		curr_turn %= len(Manager.players.values())
 		end_turn.emit()
-	
+	next_scene()
 func _on_gun_fire(bullet_obj, muzzle, bullet_speed) -> void:
 	add_child(bullet_obj)
 	bullet_obj.global_transform = muzzle.global_transform
@@ -202,3 +202,7 @@ func player_die(node):
 	Manager.players.erase(node.player_i)
 	print(Manager.players)
 	#
+	
+func next_scene():
+	get_tree().change_scene_to_file("res://scene/menu.tscn")
+	

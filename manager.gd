@@ -6,8 +6,8 @@ enum role {Battleship, Cruiser, Destroyer}
 var selected_game_mode
 var players
 
-var event_round = 0
-var map_radius = 30
+var event_round = 3
+var map_radius = 550
 var bound_radius = 3000
 
 var damage_per_round = 10
