@@ -3,6 +3,8 @@ extends Node3D
 @export var sound_speed = 333 # m/s
 @export var time_to_event = 3
 
+const NEXT_SCENE = preload("res://scene/menu.tscn")
+
 var ship_scene = {"Battleship":preload("res://Charactor/battleship.tscn"),
 					"Cruiser":preload("res://Charactor/cruiser.tscn"),
 					"Destroyer":preload("res://Charactor/destroyer.tscn")}
@@ -12,8 +14,11 @@ var button:Dictionary
 signal any_signal_received(chosen_action: String)
 signal end_move
 signal end_fire(hit_position)
+signal end_turn
+var game_over
 
 var focus_player:Dictionary
+var focus_player_i:int
 
 var prev_ship_loc:Vector3
 var new_ship_loc:Vector3
@@ -21,7 +26,6 @@ var check_distance = false
 var temp_distance:int
 var position_valid = false
 
-var fire_state = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,6 +37,7 @@ func _ready() -> void:
 	
 	$Control/Label.visible = false
 	$Control/ShowDistance.visible = false
+	$Control/ShowNearest.visible = false
 	button_panel = $Control/HBoxContainer
 	button_panel.visible = false
 	button = {
@@ -45,6 +50,8 @@ func _ready() -> void:
 	for i in range(Manager.players.size()):
 		var player = Manager.players.values()[i]
 		var temp_ship_node = ship_scene[player["role"]].instantiate()
+		temp_ship_node.player_i = player["order"]
+		temp_ship_node.die_signal.connect(player_die)
 		var gun = temp_ship_node.get_node("model").get_node("gun")
 		gun.fire.connect(_on_gun_fire)
 		add_child(temp_ship_node)
@@ -59,7 +66,7 @@ func _ready() -> void:
 		)
 
 		temp_ship_node.global_position = pos
-		temp_ship_node.visible = false
+		#temp_ship_node.visible = false
 		player["ship_node"] = temp_ship_node
 	game_turn()
 	
@@ -86,11 +93,22 @@ func game_turn():
 	var prim_round = Manager.event_round
 	while true:
 		# init setup
+		if len(Manager.players.values()) == 1:
+			$Control/ShowNearest.visible = true
+			$Control/ShowNearest.text = "Winner is player %d" % Manager.players.keys()[0]
+			await get_tree().create_timer(5).timeout
+			$Control/ShowNearest.visible = false
+			get_tree().change_scene_to_packed(NEXT_SCENE)
+			
 		focus_player = Manager.players.values()[curr_turn]
+		focus_player_i = Manager.players.keys()[curr_turn]
 		var ship = focus_player["ship_node"]
+		if ship == null:
+			Manager.players.erase(focus_player_i)
+			continue
 		var ship_cam = ship.get_node("SpringArm3D").get_node("camera")
 		var gun = ship.get_node("model").get_node("gun")
-		ship.visible = true
+		#ship.visible = true
 		ship_cam.make_current()
 		if sub_round % (Manager.selected_game_mode+1) == 0:
 			sub_round = 1
@@ -125,17 +143,18 @@ func game_turn():
 		gun.on_use = true
 		var hit_positiob = await end_fire
 		var nearest_distance = calculate_the_nearest_ship(hit_positiob, curr_turn)
-		print(nearest_distance)
+		$Control/ShowNearest.visible = true
+		$Control/ShowNearest.text = "Nearest Distabce from incident point: %.2f" % nearest_distance
 		await get_tree().create_timer(3).timeout
-		
-		ship.visible = false
+		$Control/ShowNearest.visible = false
+		#ship.visible = false
 		gun.on_use = false
 		gun.mortar_status = true
 		sub_round += 1
 		
-		
 		curr_turn += 1
-		curr_turn %= Manager.selected_game_mode
+		curr_turn %= len(Manager.players.values())
+		end_turn.emit()
 	
 func _on_gun_fire(bullet_obj, muzzle, bullet_speed) -> void:
 	add_child(bullet_obj)
@@ -176,3 +195,10 @@ func _on_button_confirm_pressed() -> void:
 	var player_ship = focus_player["ship_node"]
 	if position_valid:
 		end_move.emit()
+		
+func player_die(node):
+	await end_turn
+	node.queue_free()
+	Manager.players.erase(node.player_i)
+	print(Manager.players)
+	#

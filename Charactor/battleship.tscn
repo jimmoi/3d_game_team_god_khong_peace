@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://delut20ti2y6p"]
+[gd_scene load_steps=7 format=3 uid="uid://delut20ti2y6p"]
 
 [ext_resource type="Script" uid="uid://0rnr2eo36oo2" path="res://scripts/battleship.gd" id="1_btgdt"]
 [ext_resource type="PackedScene" uid="uid://fks50wiktmrk" path="res://Models/GLB format/ship-cargo-c.glb" id="2_tb3w1"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" uid="uid://d2sk3c4y2oef6" path="res://Charactor/spring_arm_3d_v2.gd" id="4_tb3w1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vyppf"]
-size = Vector3(3.035, 2.425, 9.86)
+size = Vector3(3.035, 0.085, 9.86)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tb3w1"]
+size = Vector3(3.035, 2.385, 9.86)
 
 [node name="Battleship" type="CharacterBody3D"]
 script = ExtResource("1_btgdt")
@@ -22,7 +25,7 @@ min_barrel_angle = -95
 bullet_speed = 80
 
 [node name="hitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -0.15320718, 1.2676333, -0.7465407)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
 shape = SubResource("BoxShape3D_vyppf")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
@@ -33,4 +36,11 @@ script = ExtResource("4_tb3w1")
 [node name="camera" type="Camera3D" parent="SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7447023, 0)
 
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1877046, 0)
+shape = SubResource("BoxShape3D_tb3w1")
+
 [connection signal="fire" from="model/gun" to="." method="_on_gun_fire"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

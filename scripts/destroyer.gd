@@ -8,7 +8,10 @@ extends CharacterBody3D
 
 var target_velocity = Vector3.ZERO
 var on_use = false
+var player_i
 
+var hp = 10
+signal die_signal
 
 # Renamed cam to camera_node for clarity
 @onready var camera_node: Camera3D = $SpringArm3D/camera
@@ -82,3 +85,12 @@ func _physics_process(delta):
 		# Moving the Character
 		velocity = target_velocity
 		move_and_slide()
+		
+func apply_damage() -> void:
+	hp -= Manager.damage_per_round
+	if hp==0:
+		die_signal.emit(self)
+		
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group("bullet"):
+		apply_damage()

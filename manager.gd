@@ -7,10 +7,10 @@ var selected_game_mode
 var players
 
 var event_round = 0
-var map_radius = 550.0
+var map_radius = 30
 var bound_radius = 3000
 
-var move_state = false
+var damage_per_round = 10
 
 func create_init_player():
 	players = {}

@@ -49,6 +49,7 @@ func create_player():
 func _on_button_role_1_pressed() -> void:
 	player_role_temp = $VBoxContainer2_select_role/Button_role_1.text
 	Manager.players[player_i]["role"] = player_role_temp
+	Manager.players[player_i]["order"] = player_i
 	player_i += 1
 	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()
@@ -56,6 +57,7 @@ func _on_button_role_1_pressed() -> void:
 func _on_button_role_2_pressed() -> void:
 	player_role_temp = $VBoxContainer2_select_role/Button_role_2.text
 	Manager.players[player_i]["role"] = player_role_temp
+	Manager.players[player_i]["order"] = player_i
 	player_i += 1
 	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()
@@ -63,6 +65,7 @@ func _on_button_role_2_pressed() -> void:
 func _on_button_role_3_pressed() -> void:
 	player_role_temp = $VBoxContainer2_select_role/Button_role_3.text
 	Manager.players[player_i]["role"] = player_role_temp
+	Manager.players[player_i]["order"] = player_i
 	player_i += 1
 	role_select_menu.get_node("Label").text = "PLAYER : %d" %  (player_i)
 	check_next_scene()

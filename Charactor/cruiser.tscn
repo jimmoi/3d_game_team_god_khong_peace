@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjac0b5msjko3"]
+[gd_scene load_steps=7 format=3 uid="uid://cjac0b5msjko3"]
 
 [ext_resource type="Script" uid="uid://b2cs04i40fsks" path="res://scripts/cruiser.gd" id="1_4xi5a"]
 [ext_resource type="PackedScene" uid="uid://4l7hy66y7py4" path="res://Models/GLB format/boat-tow-b.glb" id="2_30ysa"]
@@ -6,7 +6,10 @@
 [ext_resource type="Script" uid="uid://d2sk3c4y2oef6" path="res://Charactor/spring_arm_3d_v2.gd" id="4_ijypd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ya42d"]
-size = Vector3(2.524, 2.857, 6.07)
+size = Vector3(2.524, 0.085, 6.07)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ijypd"]
+size = Vector3(3.035, 2.385, 5.645)
 
 [node name="Cruisur" type="CharacterBody3D"]
 script = ExtResource("1_4xi5a")
@@ -22,7 +25,6 @@ min_barrel_angle = -95
 bullet_speed = 60
 
 [node name="hitbox" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5294731, 0.15949011)
 shape = SubResource("BoxShape3D_ya42d")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
@@ -33,4 +35,11 @@ script = ExtResource("4_ijypd")
 [node name="camera" type="Camera3D" parent="SpringArm3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.745, 0)
 
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1877046, 0)
+shape = SubResource("BoxShape3D_ijypd")
+
 [connection signal="fire" from="model/gun" to="." method="_on_gun_fire"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
