@@ -405,9 +405,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -414.0
-offset_top = -122.0
+offset_top = 2.0
 offset_right = 414.0
-offset_bottom = 122.0
+offset_bottom = 246.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.33302042, 0.6535779, 0.26973242, 1)
@@ -415,6 +415,15 @@ theme_override_constants/outline_size = 5
 text = "Nearest Distance: "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ShowHp" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 924.0
+offset_right = 996.0
+offset_bottom = 979.0
+theme_override_constants/outline_size = 5
+text = "HP: "
 
 [connection signal="pressed" from="Control/HBoxContainer/Button_move" to="." method="_on_button_move_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button_skill" to="." method="_on_button_skill_pressed"]
