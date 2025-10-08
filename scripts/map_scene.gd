@@ -38,7 +38,6 @@ func _ready() -> void:
 	$Control/Label.visible = false
 	$Control/ShowDistance.visible = false
 	$Control/ShowNearest.visible = false
-	$Control/ShowHp.visible = false
 	button_panel = $Control/HBoxContainer
 	button_panel.visible = false
 	button = {
@@ -109,8 +108,6 @@ func game_turn():
 			continue
 		var ship_cam = ship.get_node("SpringArm3D").get_node("camera")
 		var gun = ship.get_node("model").get_node("gun")
-		$Control/ShowHp.visible = true
-		$Control/ShowHp.text = "Player %s HP: %d" % [focus_player_i, ship.hp]
 		#ship.visible = true
 		ship_cam.make_current()
 		if sub_round % (Manager.selected_game_mode+1) == 0:
@@ -146,7 +143,6 @@ func game_turn():
 		gun.on_use = true
 		var hit_positiob = await end_fire
 		var nearest_distance = calculate_the_nearest_ship(hit_positiob, curr_turn)
-		$Control/ShowHp.visible = false
 		$Control/ShowNearest.visible = true
 		$Control/ShowNearest.text = "Nearest Distabce from incident point: %.2f" % nearest_distance
 		await get_tree().create_timer(3).timeout
