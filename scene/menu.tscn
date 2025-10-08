@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbibj3uq0edkj"]
+[gd_scene load_steps=4 format=3 uid="uid://cbibj3uq0edkj"]
 
 [ext_resource type="Script" uid="uid://bmboynohrho1c" path="res://scripts/menu.gd" id="1_e5g8k"]
+[ext_resource type="Texture2D" uid="uid://cnxbag0mr0esu" path="res://Gemini_Generated_Image_k7mz1lk7mz1lk7mz.png" id="2_8hxod"]
 
 [sub_resource type="Theme" id="Theme_8hxod"]
 default_font_size = 40
@@ -14,6 +15,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_8hxod")
 script = ExtResource("1_e5g8k")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8hxod")
 
 [node name="Button_play" type="Button" parent="."]
 visible = false
