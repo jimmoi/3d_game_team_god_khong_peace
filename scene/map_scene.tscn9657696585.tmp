@@ -1,7 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://cdin4o633pip7"]
 
 [ext_resource type="Script" uid="uid://yhiwa1kexu2o" path="res://scripts/map_scene.gd" id="1_dhios"]
-[ext_resource type="PackedScene" uid="uid://dp3f61ycbc01a" path="res://scene/gun.tscn" id="2_dhios"]
 
 [sub_resource type="Shader" id="Shader_03pub"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.5.stable's StandardMaterial3D.
@@ -288,6 +287,8 @@ default_font_size = 40
 
 [node name="Map_scene" type="Node3D"]
 script = ExtResource("1_dhios")
+sound_speed = null
+time_to_event = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.316585, -0.280829, 0.223208)
@@ -397,25 +398,6 @@ offset_right = 378.0
 offset_bottom = 979.0
 theme_override_constants/outline_size = 5
 text = "Distance moved:"
-
-[node name="ShowNearest" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -414.0
-offset_top = -122.0
-offset_right = 414.0
-offset_bottom = 122.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.33302042, 0.6535779, 0.26973242, 1)
-theme_override_constants/outline_size = 5
-text = "Nearest Distance: "
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [connection signal="pressed" from="Control/HBoxContainer/Button_move" to="." method="_on_button_move_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button_skill" to="." method="_on_button_skill_pressed"]

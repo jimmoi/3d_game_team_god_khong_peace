@@ -32,7 +32,7 @@ size = Vector3(0.02, 0.02, 0.001)
 radius = 0.0543916
 height = 0.327823
 
-[node name="trajectory" type="RigidBody3D"]
+[node name="trajectory" type="RigidBody3D" groups=["bullet"]]
 max_contacts_reported = 3
 linear_damp_mode = 1
 script = ExtResource("1_qmsch")

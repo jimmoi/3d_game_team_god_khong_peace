@@ -7,6 +7,7 @@ extends Node3D
 @export var bullet_trajectory = preload("res://scene/trajectory.tscn")
 @export var bullet_speed = 10 # m/s
 
+var on_use = false
 
 var mortar_barrel
 var mortar_muzzle
@@ -30,24 +31,27 @@ func _ready() -> void:
 	main_cam = $Camera3D
 	
 func _physics_process(delta: float) -> void:
-	mortar_movement(delta)
-	mortar_movement_fine()
-	mortar_barrel.rotation.x = deg_to_rad(clamp(rad_to_deg(mortar_barrel.rotation.x), min_barrel_angle, max_barrel_angle))
-	show_text()
-	fire_trajectory()
-	switch_shell_camera()
-	
+	if on_use:
+		mortar_movement(delta)
+		mortar_movement_fine()
+		mortar_barrel.rotation.x = deg_to_rad(clamp(rad_to_deg(mortar_barrel.rotation.x), min_barrel_angle, max_barrel_angle))
+		show_text()
+		fire_trajectory()
+		switch_shell_camera()
+	else:
+		$ui.visible = false
+		
 func mortar_movement(delta):
 	rotation_speed = default_rotation_speed
 	if Input.is_key_pressed(KEY_SHIFT):
 		rotation_speed *= 2.0
-	
+		
 	if Input.is_key_pressed(KEY_CTRL):
 		rotation_speed *= 0.5
 
-	# --- Mortar Base Rotation (Yaw) ---
+		# --- Mortar Base Rotation (Yaw) ---
 	var delta_rotation = rotation_speed * delta
-	
+		
 	if Input.is_action_pressed("left"):
 		rotate_y(deg_to_rad(delta_rotation))
 	elif Input.is_action_pressed("right"):
@@ -55,7 +59,7 @@ func mortar_movement(delta):
 
 	# --- Mortar Barrel Rotation (Pitch) ---
 	var barrel_rotation_amount = 0.0
-	
+		
 	if Input.is_action_pressed("up"):
 		mortar_barrel.rotate_x(deg_to_rad(-delta_rotation))
 	elif Input.is_action_pressed("down"):
@@ -65,7 +69,7 @@ func mortar_movement(delta):
 func mortar_movement_fine():
 	if Input.is_action_just_pressed("change_mode"):
 		current_fine_tune_mode = (current_fine_tune_mode+1)%len(fine_tune_mode)
-	
+		
 	match current_fine_tune_mode:
 		fine_tune_mode.AZI:
 			if Input.is_action_just_pressed("fine_tune_up"):
@@ -79,10 +83,11 @@ func mortar_movement_fine():
 				mortar_barrel.rotate_x(deg_to_rad(0.1))	
 	
 func show_text():
-	var azimuth = rad_to_deg(rotation.y)
-	var elevation = -rad_to_deg(mortar_barrel.rotation.x)
+	$ui.visible = true
+	var azimuth = rad_to_deg(global_rotation.y)
+	var elevation = -rad_to_deg(mortar_barrel.global_rotation.x)
 	$ui/motar_property.text = "Battery Status\n" +\
-	"Elevation: %.2f\n" % elevation +\
+	"Elevation: %.2f\n" % (90-elevation) +\
 	"Azimuth: %.2f\n" % (-azimuth if -azimuth > 0 else 360-azimuth) +\
 	"Fine-tune mode: %s\n" % fine_tune_mode.keys()[current_fine_tune_mode]
 	#################################
@@ -112,7 +117,6 @@ func fire_trajectory():
 		last_track = bullet_obj
 		fire.emit(bullet_obj, mortar_muzzle, bullet_speed)
 		mortar_status = false
-		$reload_cool_down.start()
 
 func switch_shell_camera():
 	if (last_track != null) and Input.is_action_pressed("switch_cam") :
@@ -122,6 +126,3 @@ func switch_shell_camera():
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		main_cam.make_current()
-		
-func _on_reload_cool_down_timeout() -> void:
-	mortar_status = true
