@@ -416,6 +416,15 @@ text = "Nearest Distance: "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ShowHp" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 837.0
+offset_top = 924.0
+offset_right = 1066.0
+offset_bottom = 979.0
+theme_override_constants/outline_size = 5
+text = "Player i HP: "
+
 [connection signal="pressed" from="Control/HBoxContainer/Button_move" to="." method="_on_button_move_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button_skill" to="." method="_on_button_skill_pressed"]
 [connection signal="pressed" from="Control/Button_confirm" to="." method="_on_button_confirm_pressed"]

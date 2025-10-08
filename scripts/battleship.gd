@@ -16,6 +16,7 @@ signal die_signal(node)
 # Renamed cam to camera_node for clarity
 @onready var camera_node: Camera3D = $SpringArm3D/camera
 @onready var collistion_node: CollisionShape3D = $hitbox
+@onready var area_node = $Area3D
 # Assuming you have a Camera3D node nested under the SpringArm3D
 
 # Note: The original 'cam' variable and '_ready()' are replaced by @onready 
@@ -68,6 +69,7 @@ func _physics_process(delta):
 			)
 			
 			collistion_node.rotation = $model.rotation 
+			area_node.rotation = $model.rotation 
 			
 			# Ground Velocity (Movement)
 			target_velocity.x = world_direction.x * speed

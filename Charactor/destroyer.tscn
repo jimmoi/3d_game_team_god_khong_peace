@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://d2sk3c4y2oef6" path="res://Charactor/spring_arm_3d_v2.gd" id="4_o41ur"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o41ur"]
-size = Vector3(1.775, 0.085, 2.997)
+size = Vector3(2.175, 0.085, 4.077)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_50xuh"]
 size = Vector3(1.895, 1.43, 3.02)
